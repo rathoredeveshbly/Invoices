@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Form from './Form';
+import Table from './table';
 
-function App() {
+
+function App(props) {
+const [invoices,setInvoices]=useState([])
+const [data,setData]=useState([])
+const [toggle, setToggle] = useState(false)
+
+const handleSubmit=(obj)=>{
+  console.log(obj)
+  setData(data.concat(obj))
+}
+
+const handleDelete=(i)=>{
+  let array=[...data]
+  array.splice(i,1)
+  console.log(array)
+  setData(array)
+
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+
+    {toggle==true ?  <Form setToggle={setToggle} handleSubmit={handleSubmit} /> :  <Table setToggle={setToggle} handleDelete={handleDelete} tableData={data} /> }
+     
+    
     </div>
   );
 }
